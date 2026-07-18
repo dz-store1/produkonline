@@ -126,8 +126,7 @@
 
   /* grid */
   .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  @media (max-width: 720px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px){ .grid{ grid-template-columns: 1fr; } }
+  @media (max-width: 480px){ .grid{ gap: 8px; } }
 
   .ticket{
     position: relative;
@@ -259,6 +258,24 @@
     border: 1px dashed var(--card-edge); border-radius: 18px; font-size: 13.5px;
   }
 
+  /* padatkan tampilan kartu di layar sempit supaya 3 kolom tetap nyaman */
+  @media (max-width: 480px){
+    body{ padding: 32px 8px 60px; }
+    .ticket{ border-radius: 14px; }
+    .badge{ height: 62px; }
+    .badge-tile{ width: 38px; height: 38px; border-radius: 10px; }
+    .badge-tile img{ height: 20px !important; }
+    .t-info{ padding: 8px 8px 0; }
+    .t-name{ font-size: 10px; min-height: 26px; line-height:1.25; }
+    .t-cat{ font-size: 8px; padding: 2px 6px; margin-top: 4px; }
+    .t-preview{ display: none; }
+    .t-detail{ font-size: 9px; margin-top: 6px; }
+    .perf{ margin-top: 8px; }
+    .t-bottom{ padding: 8px 8px 10px; flex-direction: column; align-items: flex-start; gap: 6px; }
+    .price{ font-size: 12px; }
+    .buy{ font-size: 10px; padding: 6px 10px; width: 100%; text-align:center; }
+  }
+
   .foot{
     text-align:center; margin-top: 40px;
   }
@@ -359,14 +376,16 @@
   <p class="bio">Toko akun premium terpercaya — proses cepat, harga bersahabat. Ratusan transaksi sukses tiap bulan!</p>
 
   <div class="socials">
-    <a href="https://wa.me/6283839394011" title="WhatsApp" target="_blank">✆</a>
+    <a href="https://wa.me/6283839394011" title="WhatsApp" target="_blank">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2.01 6.476 2.01 12c0 1.987.581 3.837 1.583 5.396L2 22l4.735-1.562A9.94 9.94 0 0012.004 22C17.522 22 22 17.523 22 12S17.522 2 12.004 2zm0 18.03c-1.788 0-3.44-.53-4.83-1.437l-.346-.207-3.13 1.03 1.045-3.049-.226-.34A7.99 7.99 0 014.01 12c0-4.411 3.585-7.997 8-7.997 4.411 0 8 3.586 8 7.997 0 4.412-3.589 8.03-8.006 8.03z"/></svg>
+    </a>
   </div>
 
   <div class="chips" id="chips"></div>
 
   <div class="grid" id="grid"></div>
 
-  <div class="foot"><a class="foot-btn" href="https://wa.me/6283839394011" target="_blank">✆ Hubungi WhatsApp 083839394011</a></div>
+  <div class="foot"><a class="foot-btn" href="https://wa.me/6283839394011" target="_blank"><svg viewBox="0 0 24 24" width="16" height="16" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2.01 6.476 2.01 12c0 1.987.581 3.837 1.583 5.396L2 22l4.735-1.562A9.94 9.94 0 0012.004 22C17.522 22 22 17.523 22 12S17.522 2 12.004 2zm0 18.03c-1.788 0-3.44-.53-4.83-1.437l-.346-.207-3.13 1.03 1.045-3.049-.226-.34A7.99 7.99 0 014.01 12c0-4.411 3.585-7.997 8-7.997 4.411 0 8 3.586 8 7.997 0 4.412-3.589 8.03-8.006 8.03z"/></svg> Hubungi WhatsApp 083839394011</a></div>
 </div>
 
 <div class="modal-overlay" id="detailModal" onclick="if(event.target===this) closeDetail()">
