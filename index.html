@@ -46,7 +46,7 @@
   /* header */
   .avatar{
     width: 84px; height: 84px; border-radius: 24px;
-    margin: 0 auto 18px;
+    margin: 0 auto 20px;
     background: #fff;
     display:flex; align-items:center; justify-content:center;
     overflow: hidden;
@@ -59,29 +59,27 @@
   }
   .bio{
     text-align:center; color: var(--text-dim); font-size: 14px;
-    margin: 8px auto 20px; max-width: 380px; line-height:1.5;
+    margin: 10px auto 0; max-width: 380px; line-height:1.5;
   }
   .guarantee-badge{
-    display:flex; align-items:center; justify-content:center; gap:10px;
-    max-width: 360px; margin: 14px auto 20px;
-    background: linear-gradient(135deg, rgba(22,163,74,0.12), rgba(20,184,172,0.10));
-    border: 1px solid rgba(22,163,74,0.35);
-    border-radius: 14px; padding: 10px 16px;
-    box-shadow: 0 8px 20px -10px rgba(22,163,74,0.35);
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    width: fit-content; max-width: 340px; margin: 16px auto 22px;
+    background: rgba(22,163,74,0.08);
+    border: 1px solid rgba(22,163,74,0.28);
+    border-radius: 999px; padding: 8px 16px;
   }
-  .guarantee-badge svg{ flex:none; color: var(--gold); }
+  .guarantee-badge svg{ flex:none; width:15px; height:15px; color: var(--gold); }
   .guarantee-badge span{
-    font-size: 12.5px; line-height:1.45; color: var(--text);
-    text-align:left;
+    font-size: 11.5px; line-height:1.3; color: var(--text-dim);
+    white-space: nowrap;
   }
   .guarantee-badge b{
-    font-family:'Space Grotesk', sans-serif; font-size: 13.5px;
-    color: var(--gold); letter-spacing: -0.01em;
+    font-family:'Space Grotesk', sans-serif; font-size: 12px;
+    color: var(--gold); letter-spacing: -0.01em; font-weight:700;
   }
   @media (max-width: 480px){
-    .guarantee-badge{ padding: 9px 12px; gap:8px; }
-    .guarantee-badge span{ font-size: 11.5px; }
-    .guarantee-badge b{ font-size: 12.5px; }
+    .guarantee-badge{ padding: 7px 12px; max-width: 92%; }
+    .guarantee-badge span{ font-size: 10px; white-space: normal; text-align:left; }
   }
 
   .socials{
@@ -188,9 +186,9 @@
     color: #0e1022; border-color: transparent;
   }
 
-  /* grid */
-  .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  @media (max-width: 480px){ .grid{ gap: 8px; } }
+  /* grid — mobile-first: 2 kolom, baru jadi 3 kolom di layar lebih lebar */
+  .grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (min-width: 560px){ .grid{ grid-template-columns: repeat(3, 1fr); gap: 14px; } }
 
   .ticket{
     position: relative;
@@ -327,7 +325,7 @@
   .perf::after{ right:-9px; }
 
   .t-bottom{
-    display:flex; align-items:center; justify-content:space-between;
+    display:flex; flex-direction:column; align-items:stretch; gap:8px;
     padding: 12px 16px 16px;
   }
   .price{ font-family:'JetBrains Mono', monospace; font-weight:800; font-size: 15.5px; color: var(--gold); letter-spacing:-0.02em; }
@@ -339,20 +337,22 @@
   .promo-tag{
     position:absolute; top:10px; left:10px; z-index:2;
     background: linear-gradient(120deg, #ff5f6d, #ff8a5b);
-    color:#fff; font-size: 9.5px; font-weight:800;
-    padding: 3px 8px; border-radius: 999px;
-    box-shadow: 0 4px 10px -3px rgba(255,95,109,0.6);
+    color:#fff; font-size: 10.5px; font-weight:800;
+    padding: 4px 10px; border-radius: 999px;
+    box-shadow: 0 4px 12px -3px rgba(255,95,109,0.75);
     letter-spacing: .02em;
   }
   .buy{
-    font-size: 11.5px; font-weight:700; color: #0e1022;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 12.5px; font-weight:700; color: #0e1022;
     background: linear-gradient(135deg, var(--teal), #22b8af);
-    border:none; padding: 8px 14px; border-radius: 10px;
+    border:none; padding: 10px 14px; border-radius: 10px;
     cursor:pointer; text-decoration:none; font-family:'Inter',sans-serif;
     transition: transform .15s ease, box-shadow .15s ease;
     box-shadow: 0 6px 14px -6px rgba(47,211,201,0.55);
+    width: 100%;
   }
-  .buy:hover{ transform: translateY(-2px) scale(1.03); box-shadow: 0 10px 20px -6px rgba(47,211,201,0.7); }
+  .buy:hover{ transform: translateY(-2px) scale(1.02); box-shadow: 0 10px 20px -6px rgba(47,211,201,0.7); }
 
   @keyframes rise{ from{ opacity:0; transform: translateY(10px);} to{ opacity:1; transform:none; } }
 
@@ -362,22 +362,21 @@
     border: 1px dashed var(--card-edge); border-radius: 18px; font-size: 13.5px;
   }
 
-  /* padatkan tampilan kartu di layar sempit supaya 3 kolom tetap nyaman */
+  /* kartu tetap lega di mobile karena sekarang cuma 2 kolom */
   @media (max-width: 480px){
-    body{ padding: 32px 8px 60px; }
-    .ticket{ border-radius: 14px; }
-    .badge{ height: 62px; }
-    .badge-tile{ width: 38px; height: 38px; border-radius: 10px; }
-    .badge-tile img{ height: 20px !important; }
-    .t-info{ padding: 8px 8px 0; }
-    .t-name{ font-size: 10px; min-height: 26px; line-height:1.25; }
-    .t-cat{ font-size: 8px; padding: 2px 6px; margin-top: 4px; }
+    body{ padding: 32px 10px 60px; }
+    .ticket{ border-radius: 16px; }
+    .badge{ height: 78px; }
+    .badge-tile{ width: 46px; height: 46px; border-radius: 12px; }
+    .badge-tile img{ height: 24px !important; }
+    .t-info{ padding: 12px 12px 0; }
+    .t-name{ font-size: 12.5px; min-height: 32px; line-height:1.3; }
+    .t-cat{ font-size: 9.5px; padding: 3px 8px; margin-top: 6px; }
     .t-preview{ display: none; }
-    .t-detail{ font-size: 9px; margin-top: 6px; }
+    .t-detail{ font-size: 10.5px; margin-top: 8px; }
     .perf{ margin-top: 8px; }
-    .t-bottom{ padding: 8px 8px 10px; flex-direction: column; align-items: flex-start; gap: 6px; }
-    .price{ font-size: 12px; }
-    .buy{ font-size: 10px; padding: 6px 10px; width: 100%; text-align:center; }
+    .t-bottom{ padding: 10px 12px 14px; }
+    .price{ font-size: 14px; }
   }
 
   .foot{
@@ -449,7 +448,7 @@
 
   <div class="guarantee-badge">
     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
-    <span><b>Garansi Uang Kembali 100%</b><br>Jika error tidak bisa diselesaikan!</span>
+    <span><b>Garansi Uang Kembali 100%</b> jika error tidak terselesaikan</span>
   </div>
 
   <div class="socials">
