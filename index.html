@@ -358,6 +358,23 @@
     box-shadow: 0 4px 12px -3px rgba(255,95,109,0.75);
     letter-spacing: .02em;
   }
+  .featured-tag{
+    position:absolute; top:10px; right:10px; z-index:2;
+    display:flex; align-items:center; gap:3px;
+    background: linear-gradient(120deg, #ffd25f, #ffb020);
+    color:#3a2600; font-size: 10.5px; font-weight:800;
+    padding: 4px 10px; border-radius: 999px;
+    box-shadow: 0 4px 12px -3px rgba(255,176,32,0.7);
+    letter-spacing: .03em;
+  }
+  .ticket.featured{
+    border-color: rgba(255,176,32,0.55);
+    box-shadow: 0 0 0 1px rgba(255,176,32,0.25), 0 14px 30px -16px rgba(255,176,32,0.45);
+  }
+  .ticket.featured:hover{
+    border-color: #ffb020;
+    box-shadow: 0 0 0 1px rgba(255,176,32,0.4), 0 18px 34px -14px rgba(255,176,32,0.55);
+  }
   .buy{
     display:flex; align-items:center; justify-content:center;
     font-size: 12.5px; font-weight:700; color: #0e1022;
@@ -637,6 +654,17 @@ function getPromo(price){
   return { oldPrice, discount: DISCOUNT_AMOUNT, percent };
 }
 
+// Produk unggulan: selalu dipinkan ke atas grid & diberi label "Unggulan"
+const FEATURED_NAMES = [
+  "Netflix Promo 28 Hari",
+  "Shared Mobile 28-30 Hari CapCut Pro",
+  "Invite Pro 1 Bulan Canva",
+];
+function markFeatured(list){
+  list.forEach(p => { p.featured = FEATURED_NAMES.includes(p.name); });
+  return list;
+}
+
 const fallbackProducts = [
   { name: "Shared Mobile 1 Hari CapCut Pro", cat: "CapCut", price: 4500,
     desc: "Tinggal login, bisa langsung melanjutkan proyek editan yang sudah kamu kerjakan sebelumnya. Video dan hasil edit tidak akan tercampur serta tidak dapat dilihat oleh pengguna lain.",
@@ -698,7 +726,7 @@ const fallbackProducts = [
     benefit: [], ketentuan: ["Tidak boleh berpindah perangkat"] },
 ];
 
-let products = fallbackProducts;
+let products = markFeatured(fallbackProducts);
 let lastCsvText = "";
 
 // Parser CSV kecil, menangani nilai yang dibungkus tanda kutip
@@ -760,14 +788,14 @@ async function loadFromSheet(isBackground){
     const parsed = csvToProducts(text);
     if(!parsed || !parsed.length) throw new Error('format csv tidak sesuai');
     lastCsvText = text;
-    products = parsed;
+    products = markFeatured(parsed);
     setLive(true);
     renderChips();
     renderGrid();
   } catch(err){
     console.warn('Gagal memuat dari Google Sheet, pakai data cadangan.', err);
     setLive(false);
-    if(!isBackground) { products = fallbackProducts; renderChips(); renderGrid(); }
+    if(!isBackground) { products = markFeatured(fallbackProducts); renderChips(); renderGrid(); }
   }
 }
 
@@ -850,10 +878,12 @@ function renderGrid(){
     return;
   }
 
+  list = list.slice().sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+
   list.forEach((p, i) => {
     const accent = getAccent(p.cat);
     const card = document.createElement('div');
-    card.className = 'ticket';
+    card.className = 'ticket' + (p.featured ? ' featured' : '');
     card.style.animationDelay = (i * 0.04) + 's';
     card.style.setProperty('--tk-accent', accent.hex);
     card.style.setProperty('--tk-shadow', `rgba(${accent.rgb},0.35)`);
@@ -866,6 +896,7 @@ function renderGrid(){
     const oldPrice = getPromo(p.price).oldPrice;
     card.innerHTML = `
       <div class="promo-tag">Promo -${getPromo(p.price).percent}%</div>
+      ${p.featured ? '<div class="featured-tag">🔥 HOT</div>' : ''}
       <div class="badge">${getBadgeContent(p.cat)}</div>
       <div class="t-info">
         <div class="t-name">${p.name}</div>
@@ -939,6 +970,7 @@ function openDetail(p){
     ? `<div class="d-label">Ketentuan:</div><ul class="d-list">${p.ketentuan.map(k => `<li>↗ ${k}</li>`).join('')}</ul>` : '';
   body.innerHTML = `
     <div class="d-avatar"><img src="${logoFomo}" alt="Fomo Store"></div>
+    ${p.featured ? '<div class="featured-tag" style="position:static; display:inline-flex; margin-bottom:10px;">🔥 HOT</div>' : ''}
     <div class="badge" style="border-radius:18px; margin-bottom:14px; --tk-glow: rgba(${getAccent(p.cat).rgb},0.30);">${getBadgeContent(p.cat)}</div>
     <div class="d-name">${p.name}</div>
     <div class="price-old" style="margin-top:8px;">${formatRp(getPromo(p.price).oldPrice)}</div>
