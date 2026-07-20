@@ -279,6 +279,28 @@
     cursor:pointer; font-size: 13px; transition: background .15s ease, color .15s ease, transform .15s ease;
   }
   .modal-close:hover{ color: var(--teal); transform: rotate(90deg); }
+  .confirm-card{ max-width: 320px; text-align:center; padding: 26px 22px 22px; }
+  .confirm-icon{
+    width: 52px; height: 52px; border-radius: 16px; margin: 0 auto 14px;
+    display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(120deg, rgba(124,111,238,0.16), rgba(20,184,172,0.16));
+    color: var(--teal);
+  }
+  .confirm-icon svg{ width: 24px; height: 24px; }
+  .confirm-title{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size: 16px; margin-bottom: 6px; }
+  .confirm-text{ font-size: 13px; color: var(--text-dim); line-height:1.55; margin-bottom: 20px; }
+  .confirm-actions{ display:flex; gap:10px; }
+  .confirm-actions button{
+    flex:1; border-radius: 12px; padding: 11px 14px; font-family:'Inter',sans-serif;
+    font-size: 13.5px; font-weight:600; cursor:pointer; transition: all .15s ease; border:1px solid transparent;
+  }
+  .confirm-cancel{ background: var(--bg-2); border-color: var(--card-edge) !important; color: var(--text-dim); }
+  .confirm-cancel:hover{ color: var(--text); border-color: #b9bcd6 !important; }
+  .confirm-ok{
+    background: linear-gradient(120deg, var(--violet), var(--teal)); color:#fff;
+    box-shadow: 0 10px 20px -8px rgba(47,211,201,0.55);
+  }
+  .confirm-ok:hover{ transform: translateY(-1px) scale(1.02); }
   .d-name{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size: 17px; line-height:1.3; }
   .d-avatar{
     width: 64px; height: 64px; border-radius: 20px; overflow:hidden;
@@ -582,6 +604,20 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="confirmModal" onclick="if(event.target===this) closeConfirm()">
+  <div class="modal-card confirm-card">
+    <div class="confirm-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+    </div>
+    <div class="confirm-title" id="confirmTitle">Konfirmasi</div>
+    <div class="confirm-text" id="confirmText">Apakah kamu yakin?</div>
+    <div class="confirm-actions">
+      <button class="confirm-cancel" onclick="closeConfirm()">Batal</button>
+      <button class="confirm-ok" id="confirmOkBtn">Ya, lanjutkan</button>
+    </div>
+  </div>
+</div>
+
 <button class="cart-fab" onclick="openCart()" aria-label="Buka keranjang">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
   <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
@@ -752,8 +788,8 @@ function setLive(ok){
   const label = document.getElementById('liveLabel');
   if(!dot || !label) return;
   if(!SHEET_CSV_URL){
-    dot.style.background = '#6b699a';
-    label.textContent = 'Mode contoh — sambungkan Google Sheet di kode';
+    dot.style.background = 'var(--teal)';
+    label.textContent = 'Katalog aktif';
     return;
   }
   dot.style.background = ok ? 'var(--teal)' : '#ff5f6d';
@@ -864,17 +900,32 @@ function renderGrid(){
       </div>
     `;
     card.querySelector('.t-detail').onclick = (e) => { e.stopPropagation(); openDetail(p); };
-    card.querySelector('.buy').onclick = (e) => { e.stopPropagation(); };
+    const buyLink = card.querySelector('.buy');
+    buyLink.onclick = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      showConfirm(
+        'Order Sekarang?',
+        `Kamu akan diarahkan ke WhatsApp untuk order "${p.name}" seharga ${formatRp(p.price)}.`,
+        () => window.open(buyLink.href, '_blank')
+      );
+    };
     const addBtn = card.querySelector('.add-cart-btn');
     addBtn.onclick = (e) => {
       e.stopPropagation();
-      addToCart(p);
-      addBtn.classList.add('added');
-      addBtn.innerHTML = '✓';
-      setTimeout(() => {
-        addBtn.classList.remove('added');
-        addBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
-      }, 900);
+      showConfirm(
+        'Tambah ke Keranjang?',
+        `Masukkan "${p.name}" ke keranjang belanja kamu?`,
+        () => {
+          addToCart(p);
+          addBtn.classList.add('added');
+          addBtn.innerHTML = '✓';
+          setTimeout(() => {
+            addBtn.classList.remove('added');
+            addBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
+          }, 900);
+        }
+      );
     };
     card.onclick = () => openDetail(p);
     gridEl.appendChild(card);
@@ -909,10 +960,37 @@ function openDetail(p){
     ${ketentuanHtml}
     <a class="buy" style="display:inline-block; margin-top:16px;" href="https://wa.me/6283839394011?text=${encodeURIComponent('Halo, saya mau order: ' + p.name + ' seharga ' + formatRp(p.price))}" target="_blank">Order →</a>
   `;
+  const buyLink = body.querySelector('.buy');
+  buyLink.onclick = (e) => {
+    e.preventDefault();
+    showConfirm(
+      'Order Sekarang?',
+      `Kamu akan diarahkan ke WhatsApp untuk order "${p.name}" seharga ${formatRp(p.price)}.`,
+      () => window.open(buyLink.href, '_blank')
+    );
+  };
   modal.classList.add('open');
 }
 function closeDetail(){
   document.getElementById('detailModal').classList.remove('open');
+}
+
+// ====== POP UP KONFIRMASI ======
+function showConfirm(title, text, onConfirm){
+  const modal = document.getElementById('confirmModal');
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmText').textContent = text;
+  const okBtn = document.getElementById('confirmOkBtn');
+  const newOkBtn = okBtn.cloneNode(true); // reset listener lama
+  okBtn.parentNode.replaceChild(newOkBtn, okBtn);
+  newOkBtn.onclick = () => {
+    closeConfirm();
+    onConfirm();
+  };
+  modal.classList.add('open');
+}
+function closeConfirm(){
+  document.getElementById('confirmModal').classList.remove('open');
 }
 
 // ====== KERANJANG (CART) ======
@@ -1015,8 +1093,17 @@ function renderCart(){
       <div class="cart-total-label">Total (${cartTotalQty()} item)</div>
       <div class="cart-total-value">${formatRp(cartTotalPrice())}</div>
     </div>
-    <a class="buy og-confirm-btn" href="${waLink}" target="_blank">Checkout via WhatsApp →</a>
+    <a class="buy og-confirm-btn" href="${waLink}" target="_blank" id="cartCheckoutBtn">Checkout via WhatsApp →</a>
   `;
+  const checkoutBtn = document.getElementById('cartCheckoutBtn');
+  checkoutBtn.onclick = (e) => {
+    e.preventDefault();
+    showConfirm(
+      'Checkout Sekarang?',
+      `Lanjutkan order ${cartTotalQty()} item dengan total ${formatRp(cartTotalPrice())} via WhatsApp?`,
+      () => window.open(checkoutBtn.href, '_blank')
+    );
+  };
 }
 
 function openCart(){
