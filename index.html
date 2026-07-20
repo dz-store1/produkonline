@@ -85,14 +85,15 @@
   .socials{
     display:flex; justify-content:center; gap:10px; margin-bottom: 32px; flex-wrap: wrap;
   }
-  .socials a{
-    width: 38px; height: 38px; border-radius: 12px;
+  .social-btn{
+    display:inline-flex; align-items:center; gap:7px;
     background: var(--card); border: 1px solid var(--card-edge);
-    display:flex; align-items:center; justify-content:center;
-    color: var(--text-dim); text-decoration:none; font-size: 16px;
+    color: var(--text-dim); text-decoration:none;
+    font-size: 12.5px; font-weight:600; font-family:'Inter',sans-serif;
+    padding: 9px 18px; border-radius: 999px;
     transition: all .15s ease;
   }
-  .socials a:hover{ color: var(--teal); border-color: var(--teal); transform: translateY(-2px); }
+  .social-btn:hover{ color: var(--teal); border-color: var(--teal); transform: translateY(-2px); }
 
   .order-guide-hint{
     display:flex; justify-content:center; margin-bottom: 20px;
@@ -111,7 +112,7 @@
     display:flex; align-items:center; justify-content:center; gap:8px;
     font-family:'JetBrains Mono', monospace; font-size: 11px;
     color: var(--teal); text-transform:uppercase; letter-spacing: .12em;
-    margin-bottom: 28px;
+    margin-bottom: 18px;
   }
   .live .dot{ width:7px; height:7px; border-radius:50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(47,211,201,0.18); animation: pulse 1.8s infinite; }
   @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.4;} }
@@ -213,7 +214,7 @@
     position: relative; overflow:hidden;
     background:
       radial-gradient(circle at 30% 20%, var(--tk-glow, rgba(139,123,255,0.28)), transparent 60%),
-      linear-gradient(155deg, #f4f4f8, #e5e6ee);
+      linear-gradient(155deg, var(--tk-tint-a, #f4f4f8), var(--tk-tint-b, #e5e6ee));
   }
   .badge::after{
     content:''; position:absolute; inset:0;
@@ -452,13 +453,19 @@
   </div>
 
   <div class="socials">
-    <a href="https://wa.me/6283839394011" title="WhatsApp" target="_blank">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2.01 6.476 2.01 12c0 1.987.581 3.837 1.583 5.396L2 22l4.735-1.562A9.94 9.94 0 0012.004 22C17.522 22 22 17.523 22 12S17.522 2 12.004 2zm0 18.03c-1.788 0-3.44-.53-4.83-1.437l-.346-.207-3.13 1.03 1.045-3.049-.226-.34A7.99 7.99 0 014.01 12c0-4.411 3.585-7.997 8-7.997 4.411 0 8 3.586 8 7.997 0 4.412-3.589 8.03-8.006 8.03z"/></svg>
+    <a class="social-btn" href="https://wa.me/6283839394011" title="WhatsApp" target="_blank">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2.01 6.476 2.01 12c0 1.987.581 3.837 1.583 5.396L2 22l4.735-1.562A9.94 9.94 0 0012.004 22C17.522 22 22 17.523 22 12S17.522 2 12.004 2zm0 18.03c-1.788 0-3.44-.53-4.83-1.437l-.346-.207-3.13 1.03 1.045-3.049-.226-.34A7.99 7.99 0 014.01 12c0-4.411 3.585-7.997 8-7.997 4.411 0 8 3.586 8 7.997 0 4.412-3.589 8.03-8.006 8.03z"/></svg>
+      <span>Chat Admin</span>
     </a>
   </div>
 
   <div class="order-guide-hint">
     <button onclick="openOrderGuide()">ℹ️ Cara Pemesanan</button>
+  </div>
+
+  <div class="live">
+    <span class="dot" id="liveDot"></span>
+    <span id="liveLabel">Memuat status katalog…</span>
   </div>
 
   <div class="promo-banner">
@@ -513,70 +520,78 @@ const logoCanva = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAJYCAMAAAC
 // 1. Buat Google Sheet dengan kolom: nama | kategori | harga
 // 2. File > Share > Publish to web > pilih sheet-nya > format CSV > Publish
 // 3. Tempel link yang dihasilkan di bawah ini
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1S43rgeI5vQq23m4A6EmNf-UpLexN9cjh62fxyA6wJP4/edit?gid=0#gid=0"; // contoh: "https://docs.google.com/spreadsheets/d/e/xxxxx/pub?output=csv"
+const SHEET_CSV_URL = ""; // contoh: "https://docs.google.com/spreadsheets/d/e/xxxxx/pub?output=csv"
 const POLL_INTERVAL_MS = 20000; // cek update setiap 20 detik
 
 // Data cadangan, dipakai kalau SHEET_CSV_URL belum diisi atau gagal dimuat
-// besaran promo/potongan yang ditampilkan di tiap produk
+// besaran promo/potongan per produk
+// Harga awal (harga coret) selalu = harga jual + Rp2.000 (potongan nominal tetap)
+// Yang ditampilkan ke pembeli adalah PERSENTASE-nya, jadi otomatis beda tiap produk
+// Contoh: harga jual Rp8.000 -> harga awal Rp10.000 -> potongan Rp2.000 -> ditampilkan "Promo -20%"
 const DISCOUNT_AMOUNT = 2000;
+function getPromo(price){
+  const oldPrice = price + DISCOUNT_AMOUNT;
+  const percent = Math.round((DISCOUNT_AMOUNT / oldPrice) * 100);
+  return { oldPrice, discount: DISCOUNT_AMOUNT, percent };
+}
 
 const fallbackProducts = [
-  { name: "Shared Mobile 1 Hari CapCut Pro", cat: "CapCut", price: 5500,
+  { name: "Shared Mobile 1 Hari CapCut Pro", cat: "CapCut", price: 4500,
     desc: "Tinggal login, bisa langsung melanjutkan proyek editan yang sudah kamu kerjakan sebelumnya. Video dan hasil edit tidak akan tercampur serta tidak dapat dilihat oleh pengguna lain.",
     benefit: ["Tinggal login, langsung pakai"],
     ketentuan: ["Tidak untuk laptop", "Tidak boleh berpindah perangkat", "Akun penjual"] },
-  { name: "Shared Duo 1 Hari CapCut Pro", cat: "CapCut", price: 6000,
+  { name: "Shared Duo 1 Hari CapCut Pro", cat: "CapCut", price: 5000,
     desc: "Untuk 2 perangkat. Bisa langsung melanjutkan proyek editan yang sudah kamu kerjakan sebelumnya. Video dan hasil edit tidak akan tercampur serta tidak dapat dilihat oleh pengguna lain.",
     benefit: ["Support semua perangkat", "Tinggal login"],
     ketentuan: ["Tidak boleh berpindah perangkat", "Akun penjual"] },
-  { name: "Invite 1 Hari CapCut Pro", cat: "CapCut", price: 7000,
+  { name: "Invite 1 Hari CapCut Pro", cat: "CapCut", price: 6000,
     desc: "Best Seller, sehari Pro dengan akun sendiri (Private). Tinggal gabung otomatis akun kamu jadi Pro. Support 3 perangkat.",
     benefit: ["Support semua perangkat", "Bisa request pembuatan akun", "Perpanjang dengan akun sebelumnya"],
     ketentuan: ["Tidak boleh berpindah perangkat", "Gabung Tim cuma buat aktivasi Pro"] },
-  { name: "Invite 3 Hari CapCut Pro", cat: "CapCut", price: 10000,
+  { name: "Invite 3 Hari CapCut Pro", cat: "CapCut", price: 9000,
     desc: "Best Seller, 3 hari Pro dengan akun sendiri (Private). Tinggal gabung otomatis akun kamu jadi Pro. Support 3 perangkat.",
     benefit: ["Support semua perangkat", "Bisa request pembuatan akun", "Perpanjang dengan akun sebelumnya"],
     ketentuan: ["Tidak boleh berpindah perangkat", "Gabung Tim cuma buat aktivasi Pro"] },
-  { name: "Shared Mobile 6-7 Hari CapCut Pro", cat: "CapCut", price: 8500,
+  { name: "Shared Mobile 6-7 Hari CapCut Pro", cat: "CapCut", price: 7500,
     desc: "Tinggal login, bisa langsung melanjutkan proyek editan yang sudah kamu kerjakan sebelumnya. Video dan hasil edit tidak akan tercampur serta tidak dapat dilihat oleh pengguna lain.",
     benefit: ["Tinggal login, langsung pakai"],
     ketentuan: ["Tidak untuk laptop", "Tidak boleh berpindah perangkat", "Akun penjual"] },
-  { name: "Shared Duo 6-7 Hari CapCut Pro", cat: "CapCut", price: 11000,
+  { name: "Shared Duo 6-7 Hari CapCut Pro", cat: "CapCut", price: 10000,
     desc: "Untuk 2 perangkat. Bisa langsung melanjutkan proyek editan yang sudah kamu kerjakan sebelumnya. Video dan hasil edit tidak akan tercampur serta tidak dapat dilihat oleh pengguna lain.",
     benefit: ["Support semua perangkat", "Tinggal login"],
     ketentuan: ["Tidak boleh berpindah perangkat", "Akun penjual"] },
-  { name: "Private 6-7 Hari CapCut Pro", cat: "CapCut", price: 13000,
+  { name: "Private 6-7 Hari CapCut Pro", cat: "CapCut", price: 12000,
     desc: "Best seller, support 3 perangkat. Bisa langsung melanjutkan proyek editan yang sudah kamu kerjakan sebelumnya. Video dan hasil edit tidak akan tercampur serta tidak dapat dilihat oleh pengguna lain.",
     benefit: ["Support semua perangkat"],
     ketentuan: ["Tidak boleh berpindah perangkat", "Menggunakan akun penjual", "Langganan dengan akun baru"] },
-  { name: "Shared Mobile 28-30 Hari CapCut Pro", cat: "CapCut", price: 21000,
+  { name: "Shared Mobile 28-30 Hari CapCut Pro", cat: "CapCut", price: 20000,
     desc: "Tinggal login, bisa langsung melanjutkan proyek editan yang sudah kamu kerjakan sebelumnya. Video dan hasil edit tidak akan tercampur serta tidak dapat dilihat oleh pengguna lain.",
     benefit: ["Tinggal login, langsung pakai"],
     ketentuan: ["Tidak untuk laptop", "Tidak boleh berpindah perangkat", "Akun penjual"] },
-  { name: "Shared Duo 28 Hari CapCut Pro", cat: "CapCut", price: 28000,
+  { name: "Shared Duo 28 Hari CapCut Pro", cat: "CapCut", price: 27000,
     desc: "Untuk 2 perangkat. Bisa langsung melanjutkan proyek editan yang sudah kamu kerjakan sebelumnya. Video dan hasil edit tidak akan tercampur serta tidak dapat dilihat oleh pengguna lain.",
     benefit: ["Support semua perangkat", "Tinggal login"],
     ketentuan: ["Tidak boleh berpindah perangkat", "Akun penjual"] },
-  { name: "Invite 1 Bulan CapCut Pro", cat: "CapCut", price: 42000,
+  { name: "Invite 1 Bulan CapCut Pro", cat: "CapCut", price: 41000,
     desc: "Best Seller, sebulan Pro dengan akun sendiri (Private). Tinggal gabung otomatis akun kamu jadi Pro. Support 3 perangkat.",
     benefit: ["Support semua perangkat", "Bisa request pembuatan akun", "Perpanjang dengan akun sebelumnya"],
     ketentuan: ["Tidak boleh berpindah perangkat", "Gabung Tim cuma buat aktivasi Pro"] },
-  { name: "Canva Tim Pro 1 Bulan", cat: "Canva", price: 21000,
+  { name: "Canva Tim Pro 1 Bulan", cat: "Canva", price: 20000,
     desc: "Akun seller atau pakai akunmu siap pakai. Paket ini memungkinkan pengguna untuk mengundang hingga 100 anggota untuk bergabung ke Canva PRO. Tanpa tercampur pembeli lain. Durasi 25-29 Hari.",
     benefit: [], ketentuan: [] },
-  { name: "Invite Pro + Designer Canva", cat: "Canva", price: 11000,
+  { name: "Invite Pro + Designer Canva", cat: "Canva", price: 10000,
     desc: "Kirim email canva kamu untuk join Tim Pro ditambah designer untuk menambah atau mengupload font dan kit on \u201cBrand kit\u201d. Paket Canva Bisnis durasi 25-29 Hari.",
     benefit: [], ketentuan: [] },
-  { name: "Invite Pro 1 Bulan Canva", cat: "Canva", price: 8000,
+  { name: "Invite Pro 1 Bulan Canva", cat: "Canva", price: 7000,
     desc: "Simpel, kirim email canva kamu untuk join Tim Pro. Paket Canva Bisnis durasi 25-29 Hari.",
     benefit: [], ketentuan: [] },
-  { name: "Netflix Promo 3 Hari", cat: "Netflix", price: 8000,
+  { name: "Netflix Promo 3 Hari", cat: "Netflix", price: 7000,
     desc: "1 Profil untuk 1 perangkat. Aman, anti limit screen dan logout.",
     benefit: [], ketentuan: ["Tidak boleh berpindah perangkat"] },
-  { name: "Netflix Promo 7 Hari", cat: "Netflix", price: 10000,
+  { name: "Netflix Promo 7 Hari", cat: "Netflix", price: 9000,
     desc: "1 Profil untuk 1 perangkat. Aman, anti limit screen dan logout.",
     benefit: [], ketentuan: ["Tidak boleh berpindah perangkat"] },
-  { name: "Netflix Promo 28 Hari", cat: "Netflix", price: 23000,
+  { name: "Netflix Promo 28 Hari", cat: "Netflix", price: 22000,
     desc: "1 Profil untuk 1 perangkat. Aman, anti limit screen dan logout.",
     benefit: [], ketentuan: ["Tidak boleh berpindah perangkat"] },
 ];
@@ -740,13 +755,15 @@ function renderGrid(){
     card.style.animationDelay = (i * 0.04) + 's';
     card.style.setProperty('--tk-accent', accent.hex);
     card.style.setProperty('--tk-shadow', `rgba(${accent.rgb},0.35)`);
-    card.style.setProperty('--tk-glow', `rgba(${accent.rgb},0.30)`);
+    card.style.setProperty('--tk-glow', `rgba(${accent.rgb},0.38)`);
     card.style.setProperty('--tk-pill-bg', `rgba(${accent.rgb},0.14)`);
     card.style.setProperty('--tk-pill-border', `rgba(${accent.rgb},0.3)`);
+    card.style.setProperty('--tk-tint-a', `rgba(${accent.rgb},0.16)`);
+    card.style.setProperty('--tk-tint-b', `rgba(${accent.rgb},0.05)`);
     const preview = p.desc ? truncate(p.desc, 70) : '';
-    const oldPrice = p.price + DISCOUNT_AMOUNT;
+    const oldPrice = getPromo(p.price).oldPrice;
     card.innerHTML = `
-      <div class="promo-tag">Promo -${formatRp(DISCOUNT_AMOUNT)}</div>
+      <div class="promo-tag">Promo -${getPromo(p.price).percent}%</div>
       <div class="badge">${getBadgeContent(p.cat)}</div>
       <div class="t-info">
         <div class="t-name">${p.name}</div>
@@ -791,8 +808,8 @@ function openDetail(p){
     <div class="d-avatar"><img src="${logoFomo}" alt="Fomo Store"></div>
     <div class="badge" style="border-radius:18px; margin-bottom:14px; --tk-glow: rgba(${getAccent(p.cat).rgb},0.30);">${getBadgeContent(p.cat)}</div>
     <div class="d-name">${p.name}</div>
-    <div class="price-old" style="margin-top:8px;">${formatRp(p.price + DISCOUNT_AMOUNT)}</div>
-    <div class="price" style="margin: 1px 0 14px;">${formatRp(p.price)} <span style="font-size:10px; font-weight:700; color:#ff5f6d; font-family:'Inter',sans-serif;">(Promo -${formatRp(DISCOUNT_AMOUNT)})</span></div>
+    <div class="price-old" style="margin-top:8px;">${formatRp(getPromo(p.price).oldPrice)}</div>
+    <div class="price" style="margin: 1px 0 14px;">${formatRp(p.price)} <span style="font-size:10px; font-weight:700; color:#ff5f6d; font-family:'Inter',sans-serif;">(Promo -${getPromo(p.price).percent}%)</span></div>
     ${p.desc ? `<p class="d-desc">${p.desc}</p>` : ''}
     ${benefitHtml}
     ${ketentuanHtml}
