@@ -61,6 +61,29 @@
     text-align:center; color: var(--text-dim); font-size: 14px;
     margin: 8px auto 20px; max-width: 380px; line-height:1.5;
   }
+  .guarantee-badge{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    max-width: 360px; margin: 14px auto 20px;
+    background: linear-gradient(135deg, rgba(22,163,74,0.12), rgba(20,184,172,0.10));
+    border: 1px solid rgba(22,163,74,0.35);
+    border-radius: 14px; padding: 10px 16px;
+    box-shadow: 0 8px 20px -10px rgba(22,163,74,0.35);
+  }
+  .guarantee-badge svg{ flex:none; color: var(--gold); }
+  .guarantee-badge span{
+    font-size: 12.5px; line-height:1.45; color: var(--text);
+    text-align:left;
+  }
+  .guarantee-badge b{
+    font-family:'Space Grotesk', sans-serif; font-size: 13.5px;
+    color: var(--gold); letter-spacing: -0.01em;
+  }
+  @media (max-width: 480px){
+    .guarantee-badge{ padding: 9px 12px; gap:8px; }
+    .guarantee-badge span{ font-size: 11.5px; }
+    .guarantee-badge b{ font-size: 12.5px; }
+  }
+
   .socials{
     display:flex; justify-content:center; gap:10px; margin-bottom: 32px; flex-wrap: wrap;
   }
@@ -422,8 +445,12 @@
 
   <div class="avatar" id="avatarBox"></div>
   <div class="handle">Fomo Store</div>
-  <p class="bio">Toko akun premium terpercaya <br>Proses cepat, harga bersahabat. 
-    <br>Garansi uang kembali 100% <br>JIKA EROR TIDAK BISA DI SELESAIKAN!</p>
+  <p class="bio">Toko akun premium terpercaya <br>Proses cepat, harga bersahabat.</p>
+
+  <div class="guarantee-badge">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+    <span><b>Garansi Uang Kembali 100%</b><br>Jika error tidak bisa diselesaikan!</span>
+  </div>
 
   <div class="socials">
     <a href="https://wa.me/6283839394011" title="WhatsApp" target="_blank">
